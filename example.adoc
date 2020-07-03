@@ -1,0 +1,94 @@
+= Use Asciidoctor-Diagrams with NIX(OS)
+
+Use the provided `default.nix` to create a `.html` and `.pdf` from each `{asterisk}.adoc` and `{asterisk}.asciidoc`. Just type:
+
+[source,shell]
+----
+nix-shell
+----
+
+Learn more about
+https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[asciidoc syntax] and
+https://asciidoctor.org/docs/asciidoctor-diagram/[asciidoctor-diagram]
+
+== Examples
+
+=== Gantt-Diagram using `Mermaid`
+[mermaid]
+....
+gantt
+    dateFormat  YYYY-MM-DD
+    section Section
+    A task           :a1, 2014-01-01, 30d
+    Another task     :after a1  , 20d
+    section Another
+    Task in sec      :2014-01-12  , 12d
+    another task      : 24d
+....
+
+=== Network-Diagram using `BlockDiag`
+[nwdiag]
+....
+nwdiag {
+  inet [shape = cloud];
+  inet -- router;
+
+  network {
+    router;
+    web01;
+    web02;
+  }
+}
+....
+
+=== Ascii Art using `ditaa`
+[ditaa]
+....
+                   +-------------+
+                   | Asciidoctor |-------+
+                   |   diagram   |       |
+                   +-------------+       | PNG out
+                       ^                 |
+                       | ditaa in        |
+                       |                 v
+ +--------+   +--------+----+    /---------------\
+ |        | --+ Asciidoctor +--> |               |
+ |  Text  |   +-------------+    |   Beautiful   |
+ |Document|   |   !magic!   |    |    Output     |
+ |     {d}|   |             |    |               |
+ +---+----+   +-------------+    \---------------/
+     :                                   ^
+     |          Lots of work             |
+     +-----------------------------------+
+....
+
+=== Wireframes using `plantuml`
+[plantuml]     
+....
+@startsalt
+{
+  Login<&person> | "MyName   "
+  Password<&key> | "****     "
+  [Cancel <&circle-x>] | [OK <&account-login>]
+}
+@endsalt
+....
+
+=== Mindmaps using `plantuml`
+[plantuml]     
+....
+@startmindmap
+* Debian
+** Ubuntu
+*** Linux Mint
+*** Kubuntu
+*** Lubuntu
+*** KDE Neon
+** LMDE
+** SolydXK
+** SteamOS
+** Raspbian with a very long name
+*** <s>Raspmbc</s> => OSMC
+*** <s>Raspyfi</s> => Volumio
+@endmindmap
+....

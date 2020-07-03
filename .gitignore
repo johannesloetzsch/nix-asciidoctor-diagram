@@ -1,0 +1,8 @@
+*.html
+*.pdf
+*.png
+
+.asciidoctor/
+
+package-lock.json
+node_modules
