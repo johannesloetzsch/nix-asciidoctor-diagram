@@ -5,7 +5,9 @@ pkgs.mkShell {
   buildInputs = with pkgs; [ asciidoctor
                              ruby  ## for asciidoctor-diagrams
                              nwdiag python37Packages.setuptools
-                             plantuml graphviz ];
+                             plantuml graphviz
+                             nodejs  ## for mermaid
+                             jre ];
 
   ## needed for mermaid
   ## https://github.com/justinwoo/puppeteer-node2nix 
@@ -14,6 +16,7 @@ pkgs.mkShell {
 
   shellHook = ''
     npm install @mermaid-js/mermaid-cli  ## TODO install via a nix-package
+    PATH=$PATH:./node_modules/.bin
 
     asciidoctor -r asciidoctor-diagram -a dot=$(which dot) *.asciidoc *.adoc
     asciidoctor-pdf -r asciidoctor-diagram -a dot=$(which dot) *.asciidoc *.adoc
